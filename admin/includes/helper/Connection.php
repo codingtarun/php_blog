@@ -10,7 +10,11 @@ define('HOST', 'localhost');
 define('USER', 'root');
 define('PASSWORD', '');
 try {
-    $con = new PDO("mysql:dbname=" . DBNAME . ";host=" . HOST . ";", USER, PASSWORD); // Making databse connection
+    $con = new PDO(
+        "mysql:dbname=" . DBNAME . ";host=" . HOST . ";",
+        USER,
+        PASSWORD
+    ); // Making databse connection
     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); //setting error reporting on 
 } catch (PDOException $e) {
     exit("Connection failed : " . $e->getMessage());

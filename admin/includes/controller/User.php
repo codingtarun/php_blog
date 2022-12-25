@@ -1,14 +1,24 @@
 <?php
-class User
+class User extends Validator
 {
-    public function __construct()
+    public $con;
+    public function __construct($con)
     {
-        echo "USER";
-        echo Encrypt::hash("Tarun");
+        $this->con = $con;
     }
-    public static function store($name, $username, $email, $password)
+    public function store($name, $username, $email, $password, $confirmpassword)
     {
-        $name = Validator::name($name);
-        return $name;
+        $role_id = 5;
+        $name = $this->name($name);
+        $password = Encrypt::hash($password);
+        $query = $this->con->prepare("INSERT INTO `users` (`name`, `userid`, `email`, `password`,`role_id`) VALUES (:name, :userid, :email, :password, :role_id)");
+        $query->bindParam(":name", $name, PDO::PARAM_STR);
+        $query->bindParam(":userid", $username, PDO::PARAM_STR);
+        $query->bindParam(":email", $email, PDO::PARAM_STR);
+        $query->bindParam(":password", $password, PDO::PARAM_STR);
+        //$query->bindParam(":signupdate", time());
+        $query->bindParam(":role_id", $role_id, PDO::PARAM_INT);
+        return $query->execute();
+        //return $query->execute();
     }
 }

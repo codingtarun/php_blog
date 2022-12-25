@@ -3,10 +3,6 @@ include 'includes/helper/Connection.php';
 include 'includes/partials/header.php';
 include 'includes/helper/AutoLoader.php';
 
-$objValidator = new Validator($con);
-
-//$obj = new Sanitize();
-
 if (isset($_POST['submit'])) {
     $name = Sanitize::name($_POST['name']);
     $username = Sanitize::username($_POST['username']);
@@ -14,13 +10,17 @@ if (isset($_POST['submit'])) {
     $password = Sanitize::password($_POST['password']);
     $confirmpassword = Sanitize::password($_POST['confirmpassword']);
 
-    echo $name . "<br>";
-    echo $username . "<br>";
-    echo $email . "<br>";
-    echo $password . "<br>";
-    echo $confirmpassword . "<br>";
+    echo $name . " - " . $username . " - " . $email . " - " . $password . " - " . $confirmpassword;
 
-    User::store($name, $username, $email, $password, $confirmpassword);
+    $validateObj = new Validator($con);
+    $validateObj->validate();
+    $user = new User($con);
+    $user->store($name, $username, $email, $password, $confirmpassword);
+
+    if ($user_created) {
+        $_SESSION['logged_in_user'] = $username;
+        header("location:index.php");
+    }
 }
 
 
@@ -88,7 +88,7 @@ if (isset($_POST['submit'])) {
                                             <button class="btn btn-primary w-100" type="submit" name="submit" id="submit">Create Account</button>
                                         </div>
                                         <div class="col-12">
-                                            <p class="small mb-0">Already have an account? <a href="pages-login.html">Log in</a></p>
+                                            <p class="small mb-0">Already have an account? <a href="login.php">Log in</a></p>
                                         </div>
                                     </form>
 
