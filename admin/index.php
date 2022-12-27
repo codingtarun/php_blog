@@ -1,4 +1,5 @@
 <?php
+include 'includes/oops.php';
 include 'includes/helper/Connection.php';
 include 'includes/partials/header.php';
 include 'includes/helper/AutoLoader.php';
