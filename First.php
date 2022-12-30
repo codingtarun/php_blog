@@ -1,8 +1,8 @@
 <?php
 
-namespace First;
+namespace First\Namespace\Sample;
 
-class TEST
+class Test
 {
     public function __construct()
     {

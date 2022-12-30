@@ -71,11 +71,11 @@ $objSetGet->set_name("Apple", "Red");
 print("<br>" . $objSetGet->get_name() . "<br>");
 
 /**
- * Assiging the valuse to properties and calling the methods or function
+ * Assigning the value to properties and calling the methods or function
  */
-$objcOne->a = 23; // Assiging values
+$objcOne->a = 23; // Assigning values to variables in a class
 $objcOne->b = 32;
-print($objcOne->sum() . "<br>"); //calling method
+print($objcOne->sum() . "<br>"); //calling method 
 print($objcOne->sub() . "<br>");
 
 $objcTwo->a = 2345;
@@ -431,11 +431,116 @@ echo ("<br>" . $objClassNine->add(23, 345) . "<br>");
  * NAMESPACE : 
  */
 
-
+/**
+ * We can use magic method autoload to include these files
+ */
 include('First.php');
 include('Second.php');
 
-use First\test as abcd;
+
+
+use First\Namespace\Sample\test as abcd;
 
 $objFirst = new abcd();
 $objSecond = new Second\Test();
+
+
+
+/**
+ * Method Chaining : 
+ */
+
+class MethodChaining
+{
+    public function first()
+    {
+        echo "<br>THIS IS FIRST METHOD";
+        return $this; // required for method chaining
+    }
+    public function second()
+    {
+        echo "<br>THIS IS FIRST METHOD";
+        return $this; // return is used until all function are executed one after another.
+    }
+    public function third()
+    {
+        echo "<br>THIS IS FIRST METHOD";
+        //return $this; // not required becuase its last method
+    }
+}
+
+$objMC = new MethodChaining();
+// NORMAL METHOD OF CALLING THE CLASSES
+$objMC->first();
+$objMC->second();
+$objMC->third();
+
+// METHOD CHAINING
+
+$objMC->first()->second()->third(); // important for framewordks.
+
+/**
+ * MAGIC METHODS : no need to create object / automatically called based upon some condition while execution of code.
+ * always starts with two underscoreds : '__'.
+ * 
+ */
+
+/**
+ * __destruct() magic method
+ */
+
+class classTen
+{
+    public $conn;
+    public function __construct()
+    {
+        echo "<br>THIS IS A CONSTRUCT";
+        //$this->conn = mysqli_connect();
+    }
+    public function hello()
+    {
+        echo "<br>HELLO MATE!!!";
+    }
+    public function __destruct() // use whenever we want to destroy or close something i.e mysql connection /
+    {
+        echo "<br>THIS IS A DESTRUCT METHOD";
+        // mysqli_close($this->conn);
+    }
+}
+
+$objCT = new classTen();
+$objCT->hello();
+$objCT->hello();
+$objCT->hello();
+$objCT->hello();
+
+
+/**
+ * PHP AUTOLOAD MAGIC METHOD : 
+ */
+
+
+/**
+ * REQUIRE METHOD : 
+ */
+
+require 'controllers/First.php';
+require 'controllers/Second.php';
+
+/**
+ * AUTOLOAD METHOD
+ */
+
+function autoload($class_name)
+{
+    $directories = array(
+        'controllers/'
+    );
+    foreach ($directories as $directory) {
+        if (file_exists($directory . $class_name . '.php')) {
+            include_once($directory . $class_name . '.php');
+        }
+    }
+}
+
+spl_autoload_register('autoload');
