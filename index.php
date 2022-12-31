@@ -36,6 +36,7 @@
             </div>
         </div>
     </nav>
+
     <!-- Page Header-->
     <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
         <div class="container position-relative px-4 px-lg-5">
@@ -51,6 +52,12 @@
     </header>
     <!-- Main Content-->
     <div class="container px-4 px-lg-5">
+        <!--JavaScript DOM-->
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-primary" id="test_btn" onclick="changeTitle();">Test</button>
+            </div>
+        </div>
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <!-- Post preview-->

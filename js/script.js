@@ -3,6 +3,7 @@
  * 1. High level
  * 2. Object-oriented : stores most kind of data into objects
  * 3. Multi-paradigm 
+ * 4. controls the behavious of web page.
  * 
  */
 console.log("HELLO JAVASCRIPT");
@@ -54,4 +55,20 @@ if (isActive) {
 }
 
 console.log(typeof (isActive)); // function to find the data type
+
+/**
+ * Accessing the button from page using ID
+ */
+
+function changeTitle() {
+    document.getElementById("test_btn").innerHTML = "OK";
+    console.log("BUTTON CLICKED!!!!");
+}
+
+/**
+ * JS Variables : 
+ * 1. Fixed Values : Literals
+ * 2. Variable Values : Variables
+ */
+
 
