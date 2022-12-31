@@ -1,5 +1,9 @@
 <?php
 
+namespace Helper;
+
+use Helper\Error as Error;
+
 class Validator
 {
     public $errors = array();
@@ -11,6 +15,12 @@ class Validator
     {
         return "<h1>Validate</h1>";
     }
+    // public static function name($input)
+    // {
+    //     if (strlen($input) < 5 || strlen($input) > 25) {
+    //         array_push(self::$errors, Error::$nameValidationError);
+    //     }
+    // }
     public function name($input)
     {
         if (strlen($input) < 5 || strlen($input) > 25) {

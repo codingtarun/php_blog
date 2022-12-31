@@ -1,28 +1,42 @@
 <?php
-include 'includes/helper/Connection.php';
+
+include 'includes/Helper/Connection.php';
 include 'includes/partials/header.php';
-include 'includes/helper/AutoLoader.php';
+//include 'includes/helper/Sanitizer.php';
+include 'includes/Helper/AutoLoader.php';
+include 'includes/Helper/Error.php';
 
-if (isset($_POST['submit'])) {
-    $name = Sanitize::name($_POST['name']);
-    $username = Sanitize::username($_POST['username']);
-    $email = Sanitize::email($_POST['email']);
-    $password = Sanitize::password($_POST['password']);
-    $confirmpassword = Sanitize::password($_POST['confirmpassword']);
+/**
+ * Creating object of Account Model Class.
+ */
 
-    echo $name . " - " . $username . " - " . $email . " - " . $password . " - " . $confirmpassword;
+$account = new Model\Account($con);
 
-    $validateObj = new Validator($con);
-    $validateObj->validate();
-    $user = new User($con);
-    $user->store($name, $username, $email, $password, $confirmpassword);
 
-    if ($user_created) {
-        $_SESSION['logged_in_user'] = $username;
-        header("location:index.php");
-    }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = Helper\Sanitizer::name($_POST['name']);
+    $email = Helper\Sanitizer::email($_POST['email']);
+    $username = Helper\Sanitizer::username($_POST['username']);
+    $password = Helper\Sanitizer::password($_POST['password']);
+    $confirmpassword = Helper\Sanitizer::password($_POST['confirmpassword']);
+
+
+    //$account->validateName($name);
+    // $account->validateEmail($email);
+    // $account->validateUsername($username);
+    // $account->validatePassword($password, $confirmpassword);
+    $account->store(
+        $name,
+        $email,
+        $username,
+        $password,
+        $confirmpassword
+    );
 }
 
+// if (isset($_POST['submit'])) {
+//     echo "HELLO";
+// }
 
 ?>
 
@@ -52,37 +66,70 @@ if (isset($_POST['submit'])) {
                                         <p class="text-center small">Enter your personal details to create account</p>
                                     </div>
 
-                                    <form action="#" class="row g-3 needs-validation" novalidate method="POST">
+                                    <form action="<?php echo  $_SERVER['PHP_SELF'] ?>" class="row g-3 needs-validation" novalidate method="POST">
                                         <div class="col-12">
                                             <label for="name" class="form-label">Full Name</label>
-                                            <input type="text" name="name" class="form-control" id="name" required>
-                                            <div class="invalid-feedback">Please, enter your name!</div>
+                                            <div class="input-group has-validation">
+                                                <input type="text" name="name" class="form-control" id="name" required>
+                                                <div class="invalid-feedback">Please, enter your name!</div>
+                                            </div>
+                                            <span style="color: red; font-size:10px;">
+                                                <?php
+                                                echo $account->getError(Helper\Error::$nameValidationError);
+                                                ?>
+                                            </span>
                                         </div>
-
-                                        <div class="col-12">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" name="email" class="form-control" id="email" required>
-                                            <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-                                        </div>
-
                                         <div class="col-12">
                                             <label for="username" class="form-label">Username</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="username" class="form-control" id="username" required>
                                                 <div class="invalid-feedback">Please choose a username.</div>
                                             </div>
+                                            <span style="color: red; font-size:10px;">
+                                                <?php
+                                                echo $account->getError(Helper\Error::$usernameValidationError);
+                                                echo $account->getError(Helper\Error::$usernameValidationAlreadyTakenError);
+                                                ?>
+                                            </span>
                                         </div>
-
+                                        <div class="col-12">
+                                            <label for="email" class="form-label">Email</label>
+                                            <div class="input-group has-validation">
+                                                <input type="email" name="email" class="form-control" id="email" required>
+                                                <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                                            </div>
+                                            <span style="color: red; font-size:10px;">
+                                                <?php
+                                                echo $account->getError(Helper\Error::$emailValidationError);
+                                                echo $account->getError(Helper\Error::$emailValidationAlreadyTakenError);
+                                                ?>
+                                            </span>
+                                        </div>
                                         <div class="col-12">
                                             <label for="password" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="password" required>
-                                            <div class="invalid-feedback">Please enter your password!</div>
+                                            <div class="input-group has-validation">
+                                                <input type="password" name="password" class="form-control" id="password" required>
+                                                <div class="invalid-feedback">Please enter your password!</div>
+                                            </div>
+                                            <span style="color: red; font-size:10px;">
+                                                <?php
+                                                echo $account->getError(Helper\Error::$passwordValidationError);
+                                                echo $account->getError(Helper\Error::$passwordValidationMismatchedError);
+                                                ?>
+                                            </span>
                                         </div>
-
                                         <div class="col-12">
                                             <label for="confirmpassword" class="form-label">Confirm Password</label>
-                                            <input type="password" name="confirmpassword" class="form-control" id="confirmpassword" required>
-                                            <div class="invalid-feedback">Please enter your password!</div>
+                                            <div class="input-group has-validation">
+                                                <input type="password" name="confirmpassword" class="form-control" id="confirmpassword" required>
+                                                <div class="invalid-feedback">Please enter your password!</div>
+                                            </div>
+                                            <span style="color: red; font-size:10px;">
+                                                <?php
+                                                echo $account->getError(Helper\Error::$passwordValidationError);
+                                                echo $account->getError(Helper\Error::$passwordValidationMismatchedError);
+                                                ?>
+                                            </span>
                                         </div>
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit" name="submit" id="submit">Create Account</button>

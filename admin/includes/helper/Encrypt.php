@@ -1,4 +1,7 @@
 <?php
+
+namespace Helper;
+
 class Encrypt
 {
     public static function hash($input)

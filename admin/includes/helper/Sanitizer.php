@@ -1,5 +1,8 @@
 <?php
-class Sanitize
+
+namespace Helper;
+
+class Sanitizer
 {
     public static function name($input)
     {

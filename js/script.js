@@ -54,3 +54,4 @@ if (isActive) {
 }
 
 console.log(typeof (isActive)); // function to find the data type
+

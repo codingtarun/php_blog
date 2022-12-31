@@ -503,7 +503,7 @@ class classTen
     }
     public function __destruct() // use whenever we want to destroy or close something i.e mysql connection /
     {
-        echo "<br>THIS IS A DESTRUCT METHOD";
+        echo "<br><br>THIS IS A DESTRUCT METHOD IT WILL EXECUTE AFTER ALL ENTIRE CODE IS EXECUTED";
         // mysqli_close($this->conn);
     }
 }
@@ -544,3 +544,68 @@ function autoload($class_name)
 }
 
 spl_autoload_register('autoload');
+
+/**
+ * 
+ * __get MAGIC METHOD : method is called automatically in case of a private property or non existant property.
+ * 
+ */
+
+
+class ClassEleven
+{
+    private $name = "__get MAGIC METHOD";
+    private $data = ['name' => 'Tarun Chauhan', 'location' => 'Shimla', 'job' => 'Full '];
+    public function __get($key)
+    {
+        echo "<br>KEY VALUE : " . $key;
+        if (array_key_exists($key, $this->data)) {
+            echo "<br>KEY EXISTS";
+        } else {
+            echo "<br>KEY NOT EXISTS";
+        }
+    }
+}
+
+$objCE = new ClassEleven();
+
+$objCE->msg;
+$objCE->location;
+
+/**
+ * __set magic method : function is called automatically when we try to set a value for private property or undefined property from outside of class
+ */
+
+
+class ClassTewelve
+{
+    private $a;
+    private $b;
+    private function foo($c)
+    {
+        $this->a = $c;
+    }
+    public function __get($name)
+    {
+        return $name;
+    }
+    public function __set($name, $value)
+    {
+        echo "<br>ACCESSING TO A PRIVATE / NON-EXISTING PROPERTY : " . $name . " / " . $value;
+        if (property_exists($this, $name)) {
+            $this->$name = $value; // $this->$name -> needs  to use $ with $this.
+        } else {
+            echo "<br>THERE IS SOME ERROR IN SETTING VALUE";
+        }
+    }
+    public function hello()
+    {
+        echo "<br>" . $this->a . "//" . $this->b;
+    }
+}
+
+$objCT = new ClassTewelve();
+$objCT->a = 10230;
+$objCT->x = "10fsef0";
+$objCT->b = "sjlkf";
+$objCT->hello();
