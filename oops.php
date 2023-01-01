@@ -609,3 +609,47 @@ $objCT->a = 10230;
 $objCT->x = "10fsef0";
 $objCT->b = "sjlkf";
 $objCT->hello();
+
+
+/**
+ *  __call() MAGIC METHOD : This method runs when user try to access a private property or method outside the class.
+ */
+
+
+class ClassThirteen
+{
+    private $name;
+    private function setName($n)
+    {
+        $this->name;
+    }
+    public function __call($method, $args)
+    {
+        if (method_exists($this, $method)) {
+            call_user_func_array([$this, $method], $args);
+        }
+    }
+}
+
+
+$objCTT = new ClassThirteen();
+
+$objCTT->setName("Tarun"); // private property can't be accessed
+$objCTT->secondName("HELLO");
+
+/**
+ * CONDITIONAL FUNCTION : CHECKING IF EXISTS OR NOT
+ * 
+ * 1. class_exists()
+ * 2. interface_exists()
+ * 3. method_exists()
+ * 4. trait_exists()
+ * 5. property_exists()
+ * 6. is_a()
+ * 7. is_subclass_of()
+ * 
+ */
+
+/**
+ * GET FUNCTIONS : 
+ */
