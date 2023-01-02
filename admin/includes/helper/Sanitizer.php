@@ -31,4 +31,13 @@ class Sanitizer
         $input = str_replace(" ", "", $input);
         return $input;
     }
+    public static function title($input)
+    {
+        $input = strip_tags($input);
+        return $input;
+    }
+    public static function text($input)
+    {
+        return $input;
+    }
 }

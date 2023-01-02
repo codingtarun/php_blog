@@ -6,55 +6,53 @@ use Helper\Error as Error;
 
 class Validator
 {
-    public $errors = array();
+    private $errors = array();
+    private $con;
     public function __construct($con)
     {
         $this->con = $con;
     }
-    public function validate()
+    public function validateName($input)
     {
-        return "<h1>Validate</h1>";
-    }
-    // public static function name($input)
-    // {
-    //     if (strlen($input) < 5 || strlen($input) > 25) {
-    //         array_push(self::$errors, Error::$nameValidationError);
-    //     }
-    // }
-    public function name($input)
-    {
-        if (strlen($input) < 5 || strlen($input) > 25) {
-            array_push($this->errors, "MINIMUM_5_WORDS");
+        if (strlen($input) < 2 || strlen($input) > 25) {
+            array_push($this->errors, Error::$nameValidationError);
         }
     }
-    public function username($input)
+    public function validateUsername($input)
     {
-        if (strlen($input) < 5 || strlen($input) > 12) {
-            array_push($this->errors, "User name Error");
+        if (strlen($input) < 5 || strlen($input) > 20) {
+            array_push($this->errors, Error::$usernameValidationError);
+        }
+        $query = $this->con->prepare("SELECT * FROM `users` WHERE `username` = :username");
+        $query->bindValue(":username", $input);
+
+        $query->execute();
+
+        if ($query->rowCount() != 0) {
+            array_push($this->errors, Error::$usernameValidationAlreadyTakenError);
         }
     }
-    public function email($input, $con)
+    public function validateEmail($input)
     {
         if (!filter_var($input, FILTER_VALIDATE_EMAIL)) {
-            array_push($this->errors, "Error in email");
+            array_push($this->errors, Error::$emailValidationError);
         }
-        $query = $con->prepare("SELECT *  FROM users WHERE email = :email");
+        $query = $this->con->prepare("SELECT * FROM `users` WHERE `email` = :email ");
         $query->bindValue(":email", $input);
         $query->execute();
         if ($query->rowCount() != 0) {
-            array_push($this->errors, "Email Id Already Exists");
+            array_push($this->errors, Error::$emailValidationAlreadyTakenError);
         }
     }
-    public function password($input, $confirm_input)
+    public function validatePassword($input, $confirm_input)
     {
-        if ($input !== $confirm_input) {
-            array_push($this->errors, "PASSWORD MISSMATCHED");
+        if ($input != $confirm_input) {
+            array_push($this->errors, Error::$passwordValidationMismatchedError);
         }
-        if (strlen($input) < 5 || strlen($input) > 20) {
-            array_push($this->errors, "PASSWORD LENGTH ERROR");
+        if (strlen($input) < 5 || strlen($input) > 30) {
+            array_push($this->errors, Error::$passwordValidationError);
         }
     }
-
     public function getError($error)
     {
         if (in_array($error, $this->errors)) {
