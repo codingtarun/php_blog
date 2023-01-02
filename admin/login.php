@@ -1,41 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include 'includes/partials/header.php';
+include 'includes/Loader.php';
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+use Helper\Sanitizer as Sanitizer;
+use Model\Account as Account;
+use Controller\Session as Session;
 
-    <title>Pages / Login - NiceAdmin Bootstrap Template</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+$account = new Account($con);
 
-    <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = Sanitizer::username($_POST['username']);
+    $password = Sanitizer::password($_POST['password']);
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
-
-    <!-- =======================================================
-  * Template Name: NiceAdmin - v2.5.0
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
+    $status = $account->login($username, $password);
+    if ($status) {
+        Session::login($username);
+    }
+}
+?>
 
 <body>
 
@@ -63,7 +45,7 @@
                                         <p class="text-center small">Enter your username & password to login</p>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" novalidate>
+                                    <form class="row g-3 needs-validation" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" novalidate>
 
                                         <div class="col-12">
                                             <label for="username" class="form-label">Username</label>
@@ -71,6 +53,9 @@
                                                 <input type="text" name="username" class="form-control" id="username" required>
                                                 <div class="invalid-feedback">Please enter your username.</div>
                                             </div>
+                                            <?php
+                                            echo $account->getError(Helper\Error::$userNotFoundError);
+                                            ?>
                                         </div>
 
                                         <div class="col-12">

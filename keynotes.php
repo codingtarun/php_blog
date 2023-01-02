@@ -44,3 +44,16 @@
  * 1. Catch data which is sent either with POST or GET.
  * 2. 
  */
+
+
+/**
+ * SESSION : When we work with an application , we open it , make some interactions and then close that application. This is a SESSION.
+ * Durign this entire interaction time computer knows who you are . It know when you started the app and closed it.
+ * Session varibales is used to store temprary data which can be accessed accross the pages.
+ * By default session remains until user close the browser.
+ * Session : variables holds information about one single user and this information is available accross all the pages.
+ * 
+ * Start Session :session_start()
+ * Destroy Session : session_destroy();
+ *  
+ */

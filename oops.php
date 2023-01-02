@@ -652,4 +652,6 @@ $objCTT->secondName("HELLO");
 
 /**
  * GET FUNCTIONS : 
+ * 1. get_class
+ * 2. 
  */

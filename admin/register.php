@@ -1,37 +1,40 @@
 <?php
 
-include 'includes/Helper/Connection.php';
-include 'includes/partials/header.php';
-//include 'includes/helper/Sanitizer.php';
-include 'includes/Helper/AutoLoader.php';
-include 'includes/Helper/Error.php';
+include 'includes/Loader.php';
+
+use Helper\Sanitizer as Sanitizer;
+use Model\Account as Account;
+use Controller\Session as Session;
 
 /**
  * Creating object of Account Model Class.
  */
 
-$account = new Model\Account($con);
+$account = new Account($con);
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = Helper\Sanitizer::name($_POST['name']);
-    $email = Helper\Sanitizer::email($_POST['email']);
-    $username = Helper\Sanitizer::username($_POST['username']);
-    $password = Helper\Sanitizer::password($_POST['password']);
-    $confirmpassword = Helper\Sanitizer::password($_POST['confirmpassword']);
+    $name = Sanitizer::name($_POST['name']);
+    $email = Sanitizer::email($_POST['email']);
+    $username = Sanitizer::username($_POST['username']);
+    $password = Sanitizer::password($_POST['password']);
+    $confirmpassword = Sanitizer::password($_POST['confirmpassword']);
 
 
     //$account->validateName($name);
     // $account->validateEmail($email);
     // $account->validateUsername($username);
     // $account->validatePassword($password, $confirmpassword);
-    $account->store(
+    $status = $account->store(
         $name,
         $email,
         $username,
         $password,
         $confirmpassword
     );
+    if ($status) {
+        Session::login($username);
+    }
 }
 
 // if (isset($_POST['submit'])) {

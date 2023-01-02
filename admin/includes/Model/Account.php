@@ -16,7 +16,21 @@ class Account
         $this->con = $con;
     }
 
+    public function login($username, $password)
+    {
+        $password = Encrypt::hash($password);
+        $query = $this->con->prepare("SELECT * FROM `users` WHERE username=:username AND password =:password");
+        $query->bindValue(":username", $username);
+        $query->bindValue(":password", $password);
 
+        $query->execute();
+
+        if ($query->rowCount() == 1) {
+            return true;
+        }
+        array_push($this->errors, Error::$userNotFoundError);
+        return false;
+    }
     public function store($name, $email, $username, $password, $confirmpassword)
     {
         /**

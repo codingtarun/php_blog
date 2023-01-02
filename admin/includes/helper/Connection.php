@@ -2,7 +2,6 @@
 
 ob_start(); // turns on output buffer / waits until all php code is executed
 session_start();
-print_r($_SESSION);
 date_default_timezone_set("Asia/Kolkata");
 
 /**
