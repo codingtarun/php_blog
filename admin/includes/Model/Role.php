@@ -3,12 +3,14 @@
 namespace Model;
 
 use Helper\Error as Error;
+use PDO;
 
 
 class Role
 {
     private $errors = array();
     private $con;
+    private $all;
     public function __construct($con)
     {
         $this->con = $con;
@@ -31,7 +33,38 @@ class Role
         }
     }
 
-    public function validateTitle($input)
+    public function viewAll()
+    {
+        $query = $this->con->prepare("SELECT * FROM `roles`");
+        $query->execute();
+        $i = 1;
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $this->all .= '
+                    <tr>
+                            <th scope="row"> ' . $i . ' </th>
+                            <td>' . $row['title'] . '</td>
+                            <td>' . $row['description'] . '</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-info">' . $this->getStatus($row['status']) . '</button>
+                                    <button type="button" class="btn btn-warning">Edit</button>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </div>
+                            </td>
+                    </tr>';
+            $i++;
+        }
+        return $this->all;
+    }
+    private function getStatus($status)
+    {
+        if ($status === 1) {
+            return 'Active';
+        } else {
+            return 'Inactive';
+        }
+    }
+    private function validateTitle($input)
     {
         if (strlen($input) < 2 || strlen($input) > 10) {
             array_push($this->errors, Error::$invalidTitleLength);
@@ -43,7 +76,7 @@ class Role
             array_push($this->errors, ERROR::$titleAlreadyExist);
         }
     }
-    public function validateText($input)
+    private function validateText($input)
     {
         if (strlen($input) < 5 || strlen($input) > 200) {
             array_push($this->errors, Error::$textLengthTooLong);

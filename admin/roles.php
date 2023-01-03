@@ -7,6 +7,7 @@ use Model\Role as Role;
 
 $role = new Role($con);
 
+
 if (!isset($_SESSION['username'])) {
     Session::logout();
     header('location:login.php');
@@ -114,20 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for ($i = 0; $i < 6; $i++) { ?>
-                                        <tr>
-                                            <th scope="row"><?php echo $i + 1; ?></th>
-                                            <td>Brandon Jacob</td>
-                                            <td>Designer</td>
-                                            <td>
-                                                <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <button type="button" class="btn btn-info">Status</button>
-                                                    <button type="button" class="btn btn-warning">Edit</button>
-                                                    <button type="button" class="btn btn-danger">Delete</button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
+                                    <?php echo $role->viewAll(); ?>
                                 </tbody>
                             </table>
                             <!-- End Default Table Example -->
