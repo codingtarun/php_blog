@@ -3,15 +3,7 @@ include 'includes/Loader.php';
 
 use Controller\Session as Session;
 use Helper\Sanitizer as Sanitizer;
-use Model\Crudpdo as Crudpdo;
 use Model\Role as Role;
-
-$roleObj = new Role($con);
-
-
-
-$crud = new Crudpdo();
-
 
 if (!isset($_SESSION['username'])) {
     Session::logout();
@@ -22,32 +14,21 @@ if (isset($_POST['logout'])) {
     Session::logout();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$roleObj = new Role($con);
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $role = $roleObj->edit($id);
+} else {
+    header("location:roles.php");
+}
+
+if (isset($_POST["update"])) {
     $title = Sanitizer::title($_POST["title"]);
     $description = Sanitizer::text($_POST["description"]);
     $status = $_POST["status"];
-    $roleObj->store($title, $description, $status);
+    $roleObj->update($id, $title, $description, $status);
+    header("location:roles.php");
 }
-
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $action = $_GET['action'];
-    switch ($action) {
-        case 'delete':
-            $roleObj->delete($id);
-            break;
-        case 'edit':
-            $roleEdit = $roleObj->edit($id);
-            break;
-        case 'status':
-            $roleStatus = $roleObj->status($id);
-            break;
-        default:
-            echo "ERROR";
-    }
-}
-
-$roles = $roleObj->viewAll();
 ?>
 
 
@@ -87,7 +68,7 @@ $roles = $roleObj->viewAll();
                                     <div class="row mb-3">
                                         <label for="title" class="col-sm-3 col-form-label">Title</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="title" id="title" placeholder="Title">
+                                            <input type="text" class="form-control" name="title" id="title" placeholder="Title" value="<?php echo $role->title; ?>">
                                             <?php
                                             echo $roleObj->getError(Helper\Error::$invalidTitleLength);
                                             echo $roleObj->getError(Helper\Error::$titleAlreadyExist);
@@ -97,7 +78,7 @@ $roles = $roleObj->viewAll();
                                     <div class="row mb-3">
                                         <label for="description" class="col-sm-3 col-form-label">Description</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" style="height: 100px" name="description" id="description"></textarea>
+                                            <textarea class="form-control" style="height: 100px" name="description" id="description"><?php echo $role->description; ?></textarea>
                                             <?php
                                             echo $roleObj->getError(Helper\Error::$textLengthTooLong);
                                             ?>
@@ -116,53 +97,13 @@ $roles = $roleObj->viewAll();
                                     <div class="row mb-3">
                                         <div class="col-sm-3"></div>
                                         <div class="col-sm-9">
-                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="submit" class="btn btn-primary" name="update">Update</button>
                                         </div>
                                     </div>
 
                                 </form><!-- End General Form Elements -->
 
                             </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Roles</h5>
-                            <!-- Default Table -->
-                            <table class="table" id="myTable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Options</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    // echo $role->viewAll(); 
-                                    $i = 1;
-                                    while ($role = $roles->fetch(PDO::FETCH_OBJ)) {
-                                    ?>
-                                        <tr>
-                                            <td> <?php echo $i; ?> </td>
-                                            <td><?php echo $role->title; ?></td>
-                                            <td><?php echo $role->description; ?></td>
-                                            <td>
-                                                <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?id=<?php echo $role->id; ?>&action=status" class="btn btn-info"><?php echo $roleObj->getStatus($role->status); ?></a>
-                                                    <a href="roles_edit.php?id=<?php echo $role->id; ?>&action=edit" class="btn btn-warning">Edit</button>
-                                                        <a href="<?php echo $_SERVER['PHP_SELF']; ?>?id=<?php echo $role->id; ?>&action=delete" class="btn btn-danger">Delete</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php
-                                        $i++;
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                            <!-- End Default Table Example -->
                         </div>
                     </div>
                 </div><!-- End Left side columns -->
