@@ -2,17 +2,15 @@
 
 namespace Model;
 
-use Helper\Error as Error;
+use Helper\Validator as Validator;
 use PDO;
-use PDOException;
 
-class Role
+class Role extends Validator
 {
-    private $errors = array();
     private $con;
-    private $all;
     public function __construct($con)
     {
+        parent::__construct($con);
         $this->con = $con;
     }
     public function store($title, $description, $status)
@@ -35,27 +33,7 @@ class Role
 
     public function viewAll()
     {
-        //$query = $this->con->prepare("SELECT * FROM `roles`");
-        //$query->execute();
-
         $roles = $this->con->query("SELECT * FROM `roles`");
-        // $i = 1;
-        // while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-        //     $this->all .= '
-        //             <tr>
-        //                     <th scope="row"> ' . $i . ' </th>
-        //                     <td>' . $row['title'] . '</td>
-        //                     <td>' . $row['description'] . '</td>
-        //                     <td>
-        //                         <div class="btn-group" role="group" aria-label="Basic example">
-        //                             <button type="button" class="btn btn-info">' . $this->getStatus($row['status']) . '</button>
-        //                             <button type="button" class="btn btn-warning">Edit</button>
-        //                             <button type="button" class="btn btn-danger">Delete</button>
-        //                         </div>
-        //                     </td>
-        //             </tr>';
-        //     $i++;
-        // }
         return $roles;
     }
 
@@ -114,30 +92,6 @@ class Role
             return 'Active';
         } else {
             return 'Inactive';
-        }
-    }
-    private function validateTitle($input)
-    {
-        if (strlen($input) < 2 || strlen($input) > 10) {
-            array_push($this->errors, Error::$invalidTitleLength);
-        }
-        $query = $this->con->prepare("SELECT * FROM `roles` WHERE `title` = :title ");
-        $query->bindValue(":title", $input);
-        $query->execute();
-        if ($query->rowCount() != 0) {
-            array_push($this->errors, ERROR::$titleAlreadyExist);
-        }
-    }
-    private function validateText($input)
-    {
-        if (strlen($input) < 5 || strlen($input) > 200) {
-            array_push($this->errors, Error::$textLengthTooLong);
-        }
-    }
-    public function getError($error)
-    {
-        if (in_array($error, $this->errors)) {
-            return $error;
         }
     }
 }

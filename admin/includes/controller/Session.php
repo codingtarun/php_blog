@@ -9,6 +9,7 @@ class Session
     {
         //session_start();
         $_SESSION['username'] = $username;
+        $_SESSION['user_id'] = 12;
         header("location:index.php");
     }
     public static function logout()

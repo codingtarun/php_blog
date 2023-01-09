@@ -12,7 +12,8 @@ class Error
     public static $usernameValidationAlreadyTakenError = "User name already taken";
     public static $emailValidationAlreadyTakenError = "Email Id already taken";
     public static $userNotFoundError = "User Not Found";
-    public static $invalidTitleLength = "Invalid String Length";
+    public static $invalidTitleLength = "<span style='color:red;font-size:10px;'>Invalid String Length</span>";
     public static $textLengthTooLong = "<span style='color:red;font-size:10px;'>Text length too long</span>";
     public static $titleAlreadyExist = "<span style='color:red;font-size:10px;'>Title already exists</span>";
+    public static $excreptError = "<span style='color:red;font-size:10px;'>Excrept Error</span>";
 }

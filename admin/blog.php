@@ -3,13 +3,11 @@ include 'includes/Loader.php';
 
 use Controller\Session as Session;
 use Helper\Sanitizer as Sanitizer;
-use Model\Crudpdo as Crudpdo;
-use Model\Role as Role;
+
 use Model\Blog as Blog;
 
-$roleObj = new Role($con);
+$blogObj = new Blog($con);
 
-$crud = new Crudpdo();
 
 
 if (!isset($_SESSION['username'])) {
@@ -23,9 +21,11 @@ if (isset($_POST['logout'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = Sanitizer::title($_POST["title"]);
-    $description = Sanitizer::text($_POST["description"]);
+    $excrept = Sanitizer::text($_POST["excrept"]);
+    $body = Sanitizer::text($_POST["body"]);
+    $user_id = 23;
     $status = $_POST["status"];
-    $roleObj->store($title, $description, $status);
+    $blogObj->store($title, $excrept, $body, $status, $user_id);
 }
 
 if (isset($_GET['id'])) {
@@ -33,20 +33,20 @@ if (isset($_GET['id'])) {
     $action = $_GET['action'];
     switch ($action) {
         case 'delete':
-            $roleObj->delete($id);
+            $blogObj->delete($id);
             break;
         case 'edit':
             $roleEdit = $roleObj->edit($id);
             break;
         case 'status':
-            $roleStatus = $roleObj->status($id);
+            $blogObj->status($id);
             break;
         default:
             echo "ERROR";
     }
 }
 
-$roles = $roleObj->viewAll();
+$blogs = $blogObj->viewAll();
 ?>
 
 
@@ -88,22 +88,31 @@ $roles = $roleObj->viewAll();
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" name="title" id="title" placeholder="Title">
                                             <?php
-                                            echo $roleObj->getError(Helper\Error::$invalidTitleLength);
-                                            echo $roleObj->getError(Helper\Error::$titleAlreadyExist);
+                                            echo $blogObj->getError(Helper\Error::$invalidTitleLength);
+                                            echo $blogObj->getError(Helper\Error::$titleAlreadyExist);
                                             ?>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="description" class="col-sm-3 col-form-label">Description</label>
+                                        <label for="excrept" class="col-sm-3 col-form-label">Excrept</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" style="height: 100px" name="description" id="description"></textarea>
+                                            <textarea class="form-control" style="height: 100px" name="excrept" id="excrept"></textarea>
                                             <?php
-                                            echo $roleObj->getError(Helper\Error::$textLengthTooLong);
+                                            echo $blogObj->getError(Helper\Error::$excreptError);
                                             ?>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="description" class="col-sm-3 col-form-label">Description</label>
+                                        <label for="body" class="col-sm-3 col-form-label">Body</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" style="height: 800px" name="body" id="body"></textarea>
+                                            <?php
+                                            echo $blogObj->getError(Helper\Error::$textLengthTooLong);
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="status" class="col-sm-3 col-form-label">Status</label>
                                         <div class="col-sm-9">
                                             <select class="form-control" name="status" id="status">
                                                 <option value="">Select</option>
@@ -133,25 +142,23 @@ $roles = $roleObj->viewAll();
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Title</th>
-                                        <th scope="col">Description</th>
                                         <th scope="col">Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    // echo $role->viewAll(); 
+                                    //echo $role->viewAll(); 
                                     $i = 1;
-                                    while ($role = $roles->fetch(PDO::FETCH_OBJ)) {
+                                    while ($blog = $blogs->fetch(PDO::FETCH_OBJ)) {
                                     ?>
                                         <tr>
                                             <td> <?php echo $i; ?> </td>
-                                            <td><?php echo $role->title; ?></td>
-                                            <td><?php echo $role->description; ?></td>
+                                            <td><?php echo $blog->title; ?></td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?id=<?php echo $role->id; ?>&action=status" class="btn btn-info"><?php echo $roleObj->getStatus($role->status); ?></a>
-                                                    <a href="roles_edit.php?id=<?php echo $role->id; ?>&action=edit" class="btn btn-warning">Edit</button>
-                                                        <a href="<?php echo $_SERVER['PHP_SELF']; ?>?id=<?php echo $role->id; ?>&action=delete" class="btn btn-danger">Delete</a>
+                                                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?id=<?php echo $blog->id; ?>&action=status" class="btn btn-info"><?php echo $blogObj->getStatus($blog->status); ?></a>
+                                                    <a href="blog_edit.php?id=<?php echo $blog->id; ?>&action=edit" class="btn btn-warning">Edit</button>
+                                                        <a href="<?php echo $_SERVER['PHP_SELF']; ?>?id=<?php echo $blog->id; ?>&action=delete" class="btn btn-danger">Delete</a>
                                                 </div>
                                             </td>
                                         </tr>

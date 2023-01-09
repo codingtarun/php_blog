@@ -61,7 +61,7 @@
             </a>
             <ul id="blog" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
+                    <a href="/admin/blog.php">
                         <i class="bi bi-eye"></i><span>View All</span>
                     </a>
                 </li>
