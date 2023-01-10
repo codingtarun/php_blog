@@ -59,11 +59,15 @@ NoSQL :
 
 ```
     1. Creating new Database : 
+
         1.1. create DATABASE `new_db`;
-        1.2. 
+
     2. Creating new Table : 
+
         2.1. decide data type for columns. 
+
         2.2. Data types in MySQL is broadly divided in 3 types.
+
             2.2.1. String Data Types :
                     * CHAR (0 - 255 characters)
                     * VARCHAR (0 - 65535 characters)
@@ -79,6 +83,7 @@ NoSQL :
                     * LONGBLOB (4294967295 bytes)
                     * ENUM (save values from a set of values)
                     * SET (lis upto 64 values )
+
             2.2.2. Numeric Data Types : 
                     * BIT(1 to 64)
                     * TINYINT (-128 to 127 number)
@@ -93,6 +98,7 @@ NoSQL :
                     * DOUBLE
                     * DECIMAL
                     * DEC
+
             2.2.3. Date & Time Datatype : (YYYY-MM-DD hh:mm:ss)
                     * DATE (1000-01-01 to 9999-12-31)
                     * DATETIME (fsp)
@@ -106,6 +112,7 @@ NoSQL :
 ```
     1. Select Databsase to perform action : 
         use `db_name`;
+
     2. Creating a table in Database : 
         CREATE TABLE `table_one` (
                     ----------------------------------
@@ -117,6 +124,68 @@ NoSQL :
                     phone VARCHAR(12),
                     gender VARCHAR(1)
                 );
-    3. Comment in MySQL : use `--`.
-    4. 
+
+    3. Comment in MySQL : use `--` to comment.
+
+    4. Inserting data into a table : 
+        INSERT INTO table_one 
+        ( `id`, `name`,          `birth_date`, `phone`,       `gender` ) values
+        ( 001 , "Tarun Chauhan", "1990-02-18", "08091334020", "M" );
+        4.1. Always provide values in order of column name provided.
+
+    5. Iserting multiple values : 
+        INSERT INTO table_one 
+        ( `id`, `name`,          `birth_date`, `phone`,       `gender` ) values
+        ( 002 , "Arun Chauhan", "1999-02-18", "08091334020", "M" ),
+        ( 003 , "Varun Chauhan", "1993-09-30", "08091334020", "M" ),
+        ( 004 , "Karun Chauhan", "1996-04-30", "08091334020", "M" ),
+        ( 005 , "Nikesh Chauhan", "1993-07-21", "08091334020", "M" );
+    
+    6. MySQL Constraints : Restriction for data columns(input)
+        6.1. NOT NULL
+        6.2. UNIQUE
+        6.3. DEFAULT
+        6.4. CHECK
+        6.5. FOREIGN KEY
+        6.6. PRIMARY KEY
+    
+    7. Creating a table with Constraints : 
+        CREATE TABLE `table_three` (
+        -----------------------------------------------------------------
+        |   COLUMN NAME   |      DATA TYPE   |    CONSTRAINTS           |
+        -----------------------------------------------------------------
+		|    id           |   INT            | NOT NULL UNIQUE,         |
+        |    name         |   VARCHAR(50)    | NOT NULL,                |
+        |    age          |   INT            | NOT NULL CHECK(age > 18),|
+        |    gender       |   VARCHAR(10)    | NOT NULL,                |
+        |    phone        |   VARCHAR(10)    | NOT NULL UNIQUE,         |
+        |    city         |   VARCHAR(10)    | NOT NULL DEFAULT 'Agra'  |
+        -----------------------------------------------------------------
+	);
+
+    8. View Data :
+        8.1. View All data : 
+                SELECT * FROM `table_one`;
+        8.1. View a particular column : 
+                SELECT `name` FROM `table_one`;
+        8.2. View more than one column data : 
+                SELECT `name`, `phone` FROM `table_one`;
+        8.3. View columns(birth_date) `as` new name('DOB') : 
+                SELECT `birth_date` AS `DOB` FROM `table_one`; 
+        8.3. Using `WHERE` to view conditional data .
+                SELECT 	`name` FROM `table_one` WHERE `gender` = 'F';
+        8.4. WHERE OPERATORS :
+                * EQUAL `=`
+                * GREATER THAN `>`
+                * SMALLER THAN `<`
+                * GREATER THAN OR EQUAL `>=`
+                * SMALLER THAN OR EQUAL `<=`
+                * NOT EQUAL `<>`,`!=`
+                * BETWEEN A RANGE `BETWEEN`
+                * SEARCH FOR A PATTREN : `LIKE`
+                * MULTIPLE POSSIBLE VALUES FOR A COLUMN  `IN`
+
+
+
+
 ```
