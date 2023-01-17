@@ -184,8 +184,13 @@ NoSQL :
                 * BETWEEN A RANGE `BETWEEN`
                 * SEARCH FOR A PATTREN : `LIKE`
                 * MULTIPLE POSSIBLE VALUES FOR A COLUMN  `IN`
-
-
+        8.5. Select data with AND / OR : 
+                SELECT * FROM `table_three` WHERE `age` >20 AND `age`<30;
+                SELECT * FROM `table_three` WHERE `age` < 20 OR `city` = "mandi";
+        8.6. Select data using `IN` operator(search for multiple record conditions) : 
+                SELECT * FROM `table_three` WHERE `age` IN(28,30)
+                SELECT * FROM `table_three` WHERE `age` NOT IN(28,30,32)
+        8.7. 
 
 
 ```
