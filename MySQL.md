@@ -190,7 +190,46 @@ NoSQL :
         8.6. Select data using `IN` operator(search for multiple record conditions) : 
                 SELECT * FROM `table_three` WHERE `age` IN(28,30)
                 SELECT * FROM `table_three` WHERE `age` NOT IN(28,30,32)
-        8.7. 
+        8.7. Select data using `BETWEEN` / `NOT BETWEEN` Operator : 
+                {SWITCHING DATABASE : use `php_blog`}
+                SELECT * FROM `users` WHERE id BETWEEN 50 AND 60;
+                SELECT * FROM `users` WHERE id NOT BETWEEN 50 AND 60;
+        8.8. Select data using `LIKE` operator : 
+                
+                
+                LIKE 'a%' -> starts with "a".
+                LIKE '%a' -> ends with "a".
+                LIKE '%am%' -> have "am" at any position.
+                LIKE 'a%m' -> starts with "a" and ends with "m".
+                LIKE '_a%' -> "a" in second position.
+                LIKE '__a%' -> "a" in third position.
+                LIKE '_oy' -> "o" in second postion and "y" in third position.
+                
+                
+                
+                SELECT * FROM `users` WHERE `username` LIKE 't%c';
+                SELECT * FROM `users` WHERE `username` NOT LIKE 't%c'; 
+        8.9. Select data using 'REGULAR EXPRESSION' : 
+
+                REGEXP `^ra` -> string begins with "ra".
+                REGEXP `ta$` -> string ends with "ta".
+                REGEXP `[rgp]` -> string has any character between the brackets.
+                REGEXP `^[gms]` -> string begins with any of the character given between the brackets.
+                REGEXP `^[a-h]` -> string starting from word between a-h + second word is e.
+                REGEXP  `prtn1|ptrn2|ptrn3` ->  string matches any of the given pattren.
+
+        8.10. Ordering the results using `ORDER BY` 
+                ORDER BY `username` ASC
+                ORDER BY `username` DESC
+
+                SELECT * FROM `users` WHERE `username` REGEXP "^[a-d]" ORDER BY `id` ASC;
+        8.11. Getting unique results using `DISTINCT` : 
+                SELECT DISTINCT `username` FROM `users` WHERE `username` REGEXP "^[a-d]" ORDER BY `id`,`username` ASC;
+        
+
+        
+
+
 
 
 ```
