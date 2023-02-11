@@ -23,7 +23,7 @@ NoSQL :
 2. NoSQL database are document based.
 3. Examples : MongoDB, Redis, Cassandra etc.
 
-```
+````
 
 ## Benefits of using MySQL : 
 ```
