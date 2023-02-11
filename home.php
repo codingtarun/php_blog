@@ -215,6 +215,72 @@
         $yy = $yy < 101 ? "Smalller" : "Greater";
 
         echo $yy . "<br>";
+
+
+        echo "<br><br>----------STRING OPERATIONS----------<br><br>";
+
+        /**
+         * Two types of String operator : 
+         * 1.  .(dot) -> $msg . "!!!!";
+         * 2.  .=(dot equals) -? $msg .= "adds new line"; 
+         * 
+         */
+
+        $html = "<br>";
+        $html .= "This is a  String Concatination Example";
+        $html .= "<br>";
+
+        echo $html;
+
+        echo "<br><br>----------WHILE LOOP----------<br><br>";
+        /**
+         * While loop : Initialize -> check for condition -> if true run code -> increment / decrement 
+         * 
+         */
+        $i = 1; // loop Intialization
+        while ($i <= 10) { // loop condition
+            $abc =  "loop no ";
+            $abc .= $i;
+            $abc .= "<br>";
+
+            echo $abc;
+
+            $i++; // altering the condition as per requirement;
+        }
+
+        echo "<br><br>----------DO WHILE LOOP----------<br><br>";
+        /**
+         * Do While loop : Initialization -> run code atleast once without checking the condition -> check for condition -> increment / decrment
+         * 
+         */
+
+        $q = 10; // loop Intialization
+
+        do { // code for execution atleast ocne
+            $xyz = "<br>";
+            $xyz .= "This is a DO WHILE loop example it will run atleast once ->" . $q;
+            $xyz .= "<br>";
+            echo $xyz;
+            $q++;
+        } while ($q < 10); // checking condition
+
+
+        echo "<br><br>----------FOR LOOP----------<br><br>";
+
+        for ($i = 1; $i < 5; $i++) {
+            echo "This is a for loop exmaple {$i} <br>";
+        }
+
+
+        echo "<br><br>----------NESTED FOR LOOP----------<br><br>";
+
+        for ($i = 67; $i < 69; $i++) {
+            for ($q = 1; $q <= 10; $q++) {
+                echo $i . " X " . $q . " = " . $i * $q;
+                echo "<br>";
+            }
+        }
+
         ?>
     </div>
 
