@@ -332,6 +332,91 @@
 
         echo "Sum is " . sum(23.123, 89.798) . "<br>";
 
+
+        echo "<br><br>----------FUNCTION ARGUMENT AS REFERENCE----------<br><br>";
+
+        /**
+         * FUNCTION ARGUMENTS  : 
+         * Function argument can be passed in two ways : 
+         * 1. Passing argument by value -> function hello($msg){}
+         * 2. Passing argument by reference -> function hello(&$a){}
+         */
+        $paraValue = "Passing argument by value";
+        $paraReference = "Passing argument by reference";
+
+        function printMsg($x, &$y)
+        {
+            echo "Original Value from inside function : " . $x . "<br>";
+            echo "Original Reference Value from inside function :" . $y . "<br>";
+            $x = "Overridden Message Value";
+            $y = "Overridden Message for Reference value"; // value of referenced variable will be updated.
+        }
+        echo "Original Value before calling function: " . $paraValue . "<br>";
+        echo "Origianl Reference Value before calling function: " . $paraReference . "<br>";
+
+        printMsg($paraValue, $paraReference);
+
+        echo "Original Value after calling function: " . $paraValue . "<br>";
+        echo "Origianl Reference Value after calling function: " . $paraReference . "<br>";
+
+
+        echo "<br><br>----------VARIABLE FUNCTION----------<br><br>";
+        /**
+         * Variable Function : Function saved inside a variable and called using the variable.
+         */
+
+        function myName() // creating a function
+        {
+            echo "Hello, I am Vikas Thakur<br>";
+        }
+
+        $myNameVariable = "myName"; // saaving a function in a variable;
+
+        $myNameVariable(); // calling the function using the variable
+
+        echo "<br><br>----------ANONYMOUS FUNCTION----------<br><br>";
+        /**
+         * Anonymous Function(closures) : a function with no name 
+         * can be used as value passed to a function.
+         */
+
+
+        $anonFunc = function () {
+            echo "HIIII!!!<br>";
+        };
+
+        $anonFunc();
+
+        echo "<br><br>----------RECURSIVE FUNCTION----------<br><br>";
+        /**
+         * Recursive Function : Function which calls itself
+         */
+
+        function display($num) // a function
+        {
+            if ($num <= 5) { // condition for calling function
+                echo "Number is " . $num . "<br>";
+                display($num + 1); // callong the function inside the function
+            }
+        }
+
+        display(1); // calling the function
+
+        echo "<br><br>----------Factorial of a number using RECURSIVE FUNCTION ----------<br><br>";
+
+        function factorial($n)
+        {
+            if ($n == 0) {
+                return 1;
+            } else {
+                return ($n * factorial($n - 1));
+            }
+        }
+
+        echo factorial(11) . "<br>";
+
+        echo "<br><br>----------LOCAL & GLOBAL VARIABLE----------<br><br>";
+
         ?>
     </div>
 
