@@ -281,6 +281,57 @@
             }
         }
 
+        echo "<br><br>----------BREAK & CONTINUE STATEMENTS----------<br><br>";
+        /**
+         * Break & continue statements : 
+         * Break : it will immiditly stop the execution and exit the statemnt
+         * Continue : Stop execution and go to the previous statement.
+         */
+        echo "EVEN/ODD NUMBER LIST(USING CONTINUE STATEMENTS)<br>";
+        for ($i = 0; $i < 10; $i++) {
+            if ($i % 2 == 0) { // condition
+                echo "EVEN NO :{$i} <br>";
+                continue; // it will not execute next line but go to the starting of the loop again
+            }
+            echo "ODD NUMBER : {$i} <br>";
+        }
+        echo "EXITING THE LOOP WHEN CONTION IS MET<br>";
+        for ($i = 0; $i < 100; $i++) {
+            if ($i > 10) { // condition
+                break; // break will exit program
+            }
+            echo $i . "<br>";
+        }
+
+        echo "<br><br>----------GOTO STATEMENT----------<br><br>";
+
+        for ($i = 0; $i < 10; $i++) {
+            if ($i == 3) {
+                goto abc; // program will exit and runs the label's statement
+            }
+            echo "Number is " . $i . "<br>";
+        }
+        abc:
+        echo "This is an example of GOTO statement";
+
+
+        echo "<br><br>----------FUNCTIONS----------<br><br>";
+
+        function firstFun() // function definition
+        {
+            echo "This is a simple function<br>";
+        }
+
+        firstFun(); // calling a function
+
+
+        function sum(float $x, float $y): int // passing paraments to function declared with data type
+        {
+            return $x + $y; // return data.
+        }
+
+        echo "Sum is " . sum(23.123, 89.798) . "<br>";
+
         ?>
     </div>
 
