@@ -416,8 +416,120 @@
         echo factorial(11) . "<br>";
 
         echo "<br><br>----------LOCAL & GLOBAL VARIABLE----------<br><br>";
+        /**
+         * Local variable : can be accessed inside a function in which it is declared.
+         * Global Variable : declared outside the function and can be acessed outside the function.
+         * declaring : 
+         */
+        $varOne = 12;
+        $varTwo = 34;
+
+        echo "OLD VARIABLE VALUE : " . $varOne . "<br>";
+        function abc()
+        {
+            global $varOne, $varTwo; // keyword 'global' will be used to access global variable inside function.
+            $varOne += $varTwo;
+            return $varOne;
+        }
+        echo "Sum is : " . abc() . "<br>";
+        echo "NEW VARIBALE VALUE :" . $varOne . "<br>";
+
+        echo "<br><br>----------INDEXED AND ASSOCIATIVE ARRAYS----------<br><br>";
+        /**
+         * Array : php data types which is used to store a collection of values of different data types.
+         * 
+         * array(12,23,12);
+         */
+
+        $numList = array(12, "Tarun", 232.123, true, null); // indexed array
+        $numList[5] = "new data";
+
+        var_dump($numList);
+        echo "<br>";
+        for ($i = 0; $i < sizeof($numList); $i++) {
+            echo "Number store at index {$i} -> {$numList[$i]} <br>";
+        }
+        echo "<pre>";
+        print_r($numList);
+        echo "</pre>";
+
+        /**
+         * Associative array : key/index -> value pair 
+         * $list = array("name" => "Tarun Chauhan", "Age" => 33); 
+         */
+
+        $data = array("name" => "Tarun Chauhan", "age" => 33, "location" => "Chandigarh"); // associative arrays
+
+        echo "<pre>";
+        //print_r($data);
+        var_dump($data);
+        echo "</pre>";
+
+        /**
+         * Foreach loop : used for arrays
+         */
+        echo "FOREACH LOOP EXAMPLE FOR INDEXED ARRAY<br>";
+        foreach ($numList as $value) {
+            echo $value . "<br>";
+        }
+
+        echo "FOREACH LOOP EXAMPLE FOR ASSOCIATIVE ARRAY<br>";
+
+        foreach ($data as $key => $value) { // foreach with key & vlue pair for associative array
+            echo "Indec {$key} -> {$value}<br>";
+        }
+
+        echo "<br><br>----------MULTIDIMENSIONAL ARRAYS----------<br><br>";
+        /**
+         * Multidimensional Array : array of arrays.
+         */
+
+
+        $mulData = [
+            ["Tarun Chauhan", "Chandigarh", "PHP Developer"],
+            ["Arun Thakur", "Shimla", "Frontend Developer"],
+            ["Vikas Rathor", "Kullu", "AWS Engineer"],
+            ["Vinita Kumari", "Solan", "Digital Marketing"],
+            ["Ashok Singh", "Shimla", "Developer"]
+        ];
+
+        echo "<pre>";
+        var_dump($mulData);
+        print_r($mulData);
+        echo "</pre>";
+
+        echo $mulData[1][0] . "<br>";
+
+        echo "<table border='1px' cellpadding='10px'>";
+        echo "<tr><td>Name</td> <td>Location</td> <td>Job</td></tr>";
+        foreach ($mulData as $arrayOneData) {
+            echo "<tr>";
+            foreach ($arrayOneData as $data) {
+                echo "<td>{$data}</td>";
+            }
+            echo "</tr>";
+        }
+        echo "</table>";
+
+        echo "<br><br>----------MULTIDIMENSIONAL ASSOCIATIVE ARRAYS----------<br><br>";
+        /**
+         * Multidimensional Associative array : 
+         * multidimensional array with key -> value
+         */
+
+
+        $mulAssocData = array(
+            "Tarun" => array("location" => "Chandigarh", "job" => "Software Developer"),
+            "Arun" => array("location" => "Banglore", "job" => "Software Develoepr"),
+            "Vikas" => array("location" => "Delhi", "job" => "Frontend Developer")
+        );
+
+        echo "<pre>";
+        print_r($mulAssocData);
+        echo "</pre>";
 
         ?>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
