@@ -17,7 +17,7 @@
         echo $msg;
 
         /**
-         * Data Types 
+         * DATA TYPES IN PHP : 
          * String = "Hello";
          * Integer = 83 , -78
          * Float = -34.23, 12.59
@@ -34,7 +34,7 @@
         $list = array("Tarun", "B.tech", "CSE", 2013); // Array
         $X = null; // NULL
         /**
-         *  var_dump() -> Knowing the data type 
+         *  PHP FUNCTION TO KNOW THE DATA TYPE : var_dump() 
          * 
          */
         echo "<br><br>---------PHP VARIABLES, VARIABLES TYPE & CONSTANT----------<br><br>";
@@ -52,7 +52,8 @@
 
         /**
          * 
-         * Constant Variables : Defining a variable which can't be changed later at any point.
+         * CONSTANT VARIABLE IN PHP :
+         * A variable whose value can't be changed once declared.
          * All constant variables are global variables.
          * Case senstive by default.
          * Syntex : define(name,value,case-senstive[true/false])
@@ -68,7 +69,7 @@
 
         /**
          * 
-         * Arithmatic Operators : 
+         * ARITHMATIC OPERATORS IN PHP : 
          *  + -> Addition
          *  - -> Subtraction
          *  * -> Multiplication
@@ -102,7 +103,7 @@
 
         /**
          *  
-         *  Assignment Operators :  Arithmatic operators used with =.
+         *  ASSIGNMENT OPERATORS : Arithmatic operators used with =.
          *  =  ->  X = Y ->  Y = X
          *  += ->  X += Y  -> X = X + Y 
          *  -= -> X -= Y -> X = X - Y
@@ -110,6 +111,7 @@
          *  /= -> X /= Y -> X = X / Y
          *  %= -> X %= Y -> X = X % Y
          *  **= -> X **= Y -> X = X ** Y
+         *  .=  -> concatinate
          * 
          */
 
@@ -166,7 +168,7 @@
 
         echo "<br><br>----------LOGICAL OPERATOR----------<br><br>";
         /**
-         * LOGICAL OPERATOR : 
+         * LOGICAL OPERATOR IN PHP : 
          * && -> AND : TRUE IF BOTH CONDITIONS ARE TRUE
          * || -> OR : TRUE IF ONE OF THE CONDITION IS TRUE ELSE FALSE
          * ! -> NOT : CHECK FOR INVERSE CONDITION
@@ -204,7 +206,7 @@
         echo "<br><br>----------TERNARY OPERATOR----------<br><br>";
 
         /**
-         * Ternary Operator: Syntex -> (constion) ? statement for true : statement for false;
+         * TERNARY OPERATOR : SHORT FORM OF IF ELSE :  (condition) ? statement for true : statement for false;
          * can use only one condition
          * 
          */
@@ -234,7 +236,7 @@
 
         echo "<br><br>----------WHILE LOOP----------<br><br>";
         /**
-         * While loop : Initialize -> check for condition -> if true run code -> increment / decrement 
+         * WHILE LOOP : Initialize -> check for condition -> if true run code -> increment / decrement 
          * 
          */
         $i = 1; // loop Intialization
@@ -250,7 +252,7 @@
 
         echo "<br><br>----------DO WHILE LOOP----------<br><br>";
         /**
-         * Do While loop : Initialization -> run code atleast once without checking the condition -> check for condition -> increment / decrment
+         * DO WHILE LOOP : Initialization -> run code atleast once without checking the condition -> check for condition -> increment / decrment
          * 
          */
 
@@ -283,8 +285,8 @@
 
         echo "<br><br>----------BREAK & CONTINUE STATEMENTS----------<br><br>";
         /**
-         * Break & continue statements : 
-         * Break : it will immiditly stop the execution and exit the statemnt
+         * BREAK & CONTINUE STATEMENT  : 
+         * Break : It will immidietly stop the execution and exit the statement.
          * Continue : Stop execution and go to the previous statement.
          */
         echo "EVEN/ODD NUMBER LIST(USING CONTINUE STATEMENTS)<br>";
@@ -436,9 +438,33 @@
 
         echo "<br><br>----------INDEXED AND ASSOCIATIVE ARRAYS----------<br><br>";
         /**
-         * Array : php data types which is used to store a collection of values of different data types.
+         * ARRAY  : php data types which is used to store a collection of values of different data types.
+         * TYPES OF ARRAYS : 
+         * 1. Indexed Array : array(12,"Tarun",23);
+         * 2. Associative Array : key => value pair : array("name" => "Tarun Chauhan","location" => "Shimla");
+         * 3. Multidimensional Array : nested array : 
+         *              array(
+         *                      array("123",2331),
+         *                      array("98",789),
+         *                      array("89",8797),
+         *              );
+         *  4. Multidimensinal Associative Array :  nested array with key => value pair
+         *             $mulAssocData = [
+         *                      "Tarun" => array(
+         *                                  "location" => "Chandigarh",
+         *                                  "job" => "Software Developer"
+         *                                  ),
+         *                      "Arun" => array(
+         *                                  "location" => "Banglore",
+         *                                  "job" => "Software Develoepr"
+         *                                  ),
+         *                      "Vikas" => array(
+         *                                  "location" => "Delhi",
+         *                                  "job" => "Frontend Developer"
+         *                                  )
+         *                              ];
          * 
-         * array(12,23,12);
+         *                              
          */
 
         $numList = array(12, "Tarun", 232.123, true, null); // indexed array
@@ -518,15 +544,108 @@
          */
 
 
-        $mulAssocData = array(
-            "Tarun" => array("location" => "Chandigarh", "job" => "Software Developer"),
-            "Arun" => array("location" => "Banglore", "job" => "Software Develoepr"),
-            "Vikas" => array("location" => "Delhi", "job" => "Frontend Developer")
-        );
+        $mulAssocData = [
+            "Tarun" => array(
+                "location" => "Chandigarh",
+                "job" => "Software Developer"
+            ),
+            "Arun" => array(
+                "location" => "Banglore",
+                "job" => "Software Develoepr"
+            ),
+            "Vikas" => array(
+                "location" => "Delhi",
+                "job" => "Frontend Developer"
+            )
+        ];
 
         echo "<pre>";
         print_r($mulAssocData);
         echo "</pre>";
+        /**
+         * Using foreach loop to display data from a multidimensional associative array
+         */
+        foreach ($mulAssocData as $key => $value) {
+            echo "Name : {$key} <br>";
+            foreach ($value as $index => $data) {
+                echo "{$index} => {$data} <br>";
+            }
+        }
+        echo "<br><br>----------LIST FUNCTION WITH MULTIDIMENSIONAL ASSOCIATIVE ARRAYS----------<br><br>";
+        /**
+         * list() function is used to display data from a multidimensional data. without using nested foreach loops.
+         */
+
+        $mda = [
+            ["Tarun", 33, 1990, "PHP Developer"],
+            ["Arun", 32, 1991, "Frontedn Developer"],
+            ["Vikas", 30, 1992, "Graphics Designer"]
+        ];
+
+        foreach ($mda as list($name, $age, $yob, $job)) {
+            echo "Hello, my name is {$name} , I am {$age} yeaars old and I am a {$job}<br>";
+        }
+
+        echo "<br><br>----------Count() & Sizeof() function----------<br><br>";
+        /**
+         * Count() -> count the number of data in an array.
+         * sizeof() -> getting the lenght of an array.
+         * 
+         */
+
+
+        $names = ["Tarun", "Tarun", "Varun", "Arun"];
+
+        echo "Lenght of Array : " . sizeof($names) . "--" . count($names) . "<br>";
+        echo "Length of MULTI DIM Array (with nested array): " . count($mulAssocData, 1) . "<br>";
+        print_r(array_count_values($names));
+
+
+        echo "<br><br>----------Count() & Sizeof() function----------<br><br>";
+
+        echo "Size of name array using count() : " . count($names) . "<br>";
+        echo "size of name array using sizeof() : " . sizeof($names) . "<br>";
+
+
+        /**ARRAY FUNCTIONS LIST & WORKING (COVER ONE ARRAY FUNCTION TOPIC EVERY DAY)*/
+
+        /**
+         * 
+         * in_array -> searching element in an array
+         * array_seaarch -> search and return the key/index in associative array
+         * 
+         */
+
+        $fruits = ['apple', 'orange', 'pineapple', 'pear', [1, 34, 53]];
+        $info = ["a" => "apple", "b" => "ball", "c" => "cat", "d" => "donkey"];
+        echo "in_array EXAMPLE <br> :";
+        if (in_array([1, 34, 53], $fruits)) {
+            echo "Value Exists<br>";
+        } else {
+            echo "Value doesn't exists<br>";
+        }
+
+        echo "array_search EXAMPLE <br>";
+        echo "For associative array : " . array_search("ball", $info) . "<br>";
+
+        /**
+         *  array_replace() & array_replace_recursive() : used to replace the elements in an array;
+         *  array_replace() -> used with indexed & associative array.
+         *  array_replace_recursive() -> used with multidimensional associative array.
+         * 
+         */
+
+
+        /**
+         * PHP INCLUDE & REQUIRE FUNCTION : both used to includes common files.
+         * INCLUDE : if any error happens next code will execute.
+         * REQUIRE : if error happens next code will not execute.
+         * 
+         * PHP INCLUDE_ONCE & REQUIRE_ONCE : both used to include common files but it will be executed once no matter how many times you have used thr function.
+         */
+
+
+
 
         ?>
 
