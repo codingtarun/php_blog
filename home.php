@@ -17,7 +17,7 @@
         echo $msg;
 
         /**
-         * DATA TYPES IN PHP : 
+         * DATA TYPES IN PHP : 7 data types 
          * String = "Hello";
          * Integer = 83 , -78
          * Float = -34.23, 12.59
@@ -224,7 +224,7 @@
         /**
          * Two types of String operator : 
          * 1.  .(dot) -> $msg . "!!!!";
-         * 2.  .=(dot equals) -? $msg .= "adds new line"; 
+         * 2.  .=(dot equals) -> $msg .= "adds new line"; 
          * 
          */
 
@@ -437,6 +437,10 @@
         echo "NEW VARIBALE VALUE :" . $varOne . "<br>";
 
         echo "<br><br>----------INDEXED AND ASSOCIATIVE ARRAYS----------<br><br>";
+
+
+
+
         /**
          * ARRAY  : php data types which is used to store a collection of values of different data types.
          * TYPES OF ARRAYS : 
@@ -641,13 +645,79 @@
          * INCLUDE : if any error happens next code will execute.
          * REQUIRE : if error happens next code will not execute.
          * 
-         * PHP INCLUDE_ONCE & REQUIRE_ONCE : both used to include common files but it will be executed once no matter how many times you have used thr function.
+         * PHP INCLUDE_ONCE & REQUIRE_ONCE : both used to include common files but it will be executed once no matter how many times you have used the function.
          */
 
 
+        /**
+         * SUPER GLOBAL VARIABLES : USED TO PASS DATA BETWEEN DIFFERENT FILES.
+         * AVAILABLE ALL THE TIME AND ANYWHERE.
+         * 7 Types of global variables : 
+         * 1. $_GET -> using html <form> element 
+         * 2. $_POST -> using html <form> element
+         * 3. $_REQUEST -> using html <form> element
+         * 4. $_SERVER
+         * 5. $_SESSION
+         * 6. $_COOKIE
+         * 7. $_FILES 
+         */
 
+
+        /**
+         *  $_GET : 
+         * 
+         */
+        echo "<pre>";
+        print_r($_GET); // This variable will store the data in form of associative array sent by form submit using get method. 
+        echo "</pre>";
+
+        /**
+         * $_POST : 
+         */
+
+
+        /**
+         * $_SERVER : Getting information related to server
+         * HTTP connection
+         * SERVER information
+         * HOST information
+         * URL information
+         */
+
+        echo "<pre>";
+        print_r($_SERVER); // returns all of the server information
+        echo "</pre>";
+
+        if (isset($_POST['save'])) {
+            echo "<pre>";
+            print_r($_POST); // storing data in array form sent by form submit usinf post method
+            echo "</pre>";
+        }
 
         ?>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+            <!--
+                for get method Data will be passed using URL and in the form of an array / associative array using field 'name' as key
+                Data will be shown in url
+                not secure
+                low data limit
+            -->
+            Name : <input type="text" name="name" id="name">
+            Email : <input type="email" name="email" id="email">
+            <button type="submit">Submit</button>
+        </form>
+
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <!--
+                for post method Data will be passed in the form of an array / associative array using field 'name' as key 
+                Data will not be shown
+                secure method
+                large data limit
+            -->
+            Name : <input type="text" name="name1" id="name1">
+            Email : <input type="email" name="email1" id="email1">
+            <button type="submit" name="save">Submit</button>
+        </form>
 
     </div>
 
