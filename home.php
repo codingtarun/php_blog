@@ -1,3 +1,15 @@
+<?php
+
+/**
+ * Must be initialize at the top.
+ * 
+ */
+$cookie_name = "USER";
+$cookie_value = "TARUN CHAUHAN";
+//setcookie(name, value, expire, path, domain, secure, httponly);
+setcookie($cookie_name, "", time() - (86400 * 30), "/");
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -650,7 +662,9 @@
 
 
         /**
-         * SUPER GLOBAL VARIABLES : USED TO PASS DATA BETWEEN DIFFERENT FILES.
+         * SUPER GLOBAL VARIABLES : which means that they are always accessible, regardless of scope  
+         *                          and you can access them from any function, class or file without 
+         *                          having to do anything special.
          * AVAILABLE ALL THE TIME AND ANYWHERE.
          * 7 Types of global variables : 
          * 1. $_GET -> using html <form> element 
@@ -660,6 +674,8 @@
          * 5. $_SESSION
          * 6. $_COOKIE
          * 7. $_FILES 
+         * 8. $_ENV
+         * 9. $GLOBAL
          */
 
 
@@ -693,6 +709,21 @@
             print_r($_POST); // storing data in array form sent by form submit usinf post method
             echo "</pre>";
         }
+
+        /**
+         * $_COOKIES : A small file which server embeds in user's computer to save & retrieve some information.
+         * Creating Cookies syntext : setcookie(name, value, expire(when will it expire) , path(from which page you want to have access) , domain(whcih domain to access website name/ subdomain name), secure(https->true, https + http->false) , httponly(true-> can be accessed for server side langauge/ false -> can be accessed fromcl ient side scripts like JS.))
+         * view cookie  : $_COOKIE['name];
+         * // Cookie must be declared at the top of the file before anything else
+         */
+
+        if (!isset($_COOKIE["USER"])) {
+            echo "<br>COOKIE NOT SET<br>";
+        } else {
+            echo "<br>" . $_COOKIE["USER"] . "<br><br>";
+        }
+        //setcookie($cookie_name, $cookie_value, time() - (86400 * 30), "/");
+
 
         ?>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">

@@ -52,6 +52,14 @@
     </header>
     <!-- Main Content-->
     <div class="container px-4 px-lg-5">
+        <?php
+        if (!isset($_COOKIE["USER"])) {
+            echo "<br>COOKIE NOT SET<br>";
+        } else {
+            echo "<br>" . $_COOKIE["USER"] . "<br><br>";
+        }
+
+        ?>
         <!--JavaScript DOM-->
         <div class="row">
             <div class="col-12">
