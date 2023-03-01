@@ -297,9 +297,10 @@ setcookie($cookie_name, "", time() - (86400 * 30), "/");
 
         echo "<br><br>----------BREAK & CONTINUE STATEMENTS----------<br><br>";
         /**
-         * BREAK & CONTINUE STATEMENT  : 
+         * BREAK , CONTINUE & GOTO STATEMENT  : 
          * Break : It will immidietly stop the execution and exit the statement.
          * Continue : Stop execution and go to the previous statement.
+         * Goto : Stop execution and go to the specified program.
          */
         echo "EVEN/ODD NUMBER LIST(USING CONTINUE STATEMENTS)<br>";
         for ($i = 0; $i < 10; $i++) {
@@ -403,7 +404,7 @@ setcookie($cookie_name, "", time() - (86400 * 30), "/");
 
         echo "<br><br>----------RECURSIVE FUNCTION----------<br><br>";
         /**
-         * Recursive Function : Function which calls itself
+         * RECURSIVE FUNCTION : Function which calls itself
          */
 
         function display($num) // a function
@@ -431,8 +432,8 @@ setcookie($cookie_name, "", time() - (86400 * 30), "/");
 
         echo "<br><br>----------LOCAL & GLOBAL VARIABLE----------<br><br>";
         /**
-         * Local variable : can be accessed inside a function in which it is declared.
-         * Global Variable : declared outside the function and can be acessed outside the function.
+         * LOCAL VARIABLE : can be accessed inside a function in which it is declared.
+         * GLOBAL VARIABLE : declared outside the function and can be acessed outside the function.
          * declaring : 
          */
         $varOne = 12;
