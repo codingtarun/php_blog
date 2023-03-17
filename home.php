@@ -1,4 +1,7 @@
 <?php
+session_start();
+$_SESSION['info'] = "Tarun Chauhan";
+
 
 /**
  * Must be initialize at the top.
@@ -667,7 +670,7 @@ setcookie($cookie_name, "", time() - (86400 * 30), "/");
          *                          and you can access them from any function, class or file without 
          *                          having to do anything special.
          * AVAILABLE ALL THE TIME AND ANYWHERE.
-         * 7 Types of global variables : 
+         * 9 Types of global variables : 
          * 1. $_GET -> using html <form> element 
          * 2. $_POST -> using html <form> element
          * 3. $_REQUEST -> using html <form> element
@@ -750,6 +753,62 @@ setcookie($cookie_name, "", time() - (86400 * 30), "/");
             Email : <input type="email" name="email1" id="email1">
             <button type="submit" name="save">Submit</button>
         </form>
+
+        <!--
+            $_SESSION : used to store information temprearly like cookie but insted of storing info on user's PC session store info in server
+            Session store : data stored in server temp.
+            Session is mainly used to manage loged in information of the users 
+
+            1. session_start(); // created once
+            2. $_SESSION['name'] = value; // assiging value
+            3. echo $_SESSION['name']; // echo  anywhere in application
+            4. session_unset(); // Deleting session variable & its values
+            5. session_destroy() ; // destroy session
+
+        -->
+        <?php
+        echo '<pre>';
+        print_r($_SESSION); // we can access this session anywhere 
+        echo '</pre>';
+        echo $_SESSION['info'];
+        //session_unset(); //deleting variable & data
+        //session_destroy(); //session deleted permanently
+        ?>
+
+        <!--
+            $_FILES : 
+            1. $_FILES['image'] -> this function will get the following info : name , size , tmp_name , type : JPG/PNG/GIF etc
+            2. move_upload_file($file_name , $destination_of_file)
+        -->
+
+        <?php
+        if (isset($_FILES['img'])) {
+            echo '<pre>';
+            print_r($_FILES); // printing all the information of the uploaded image
+            echo '</pre>';
+            $file_name = $_FILES['img']['name'];
+            $file_temp = $_FILES['img']['tmp_name'];
+            $file_type = $_FILES['img']['type'];
+
+            if (move_uploaded_file($file_temp, 'assets/img/uploaded/' . $file_name)) {
+                echo "FILE UPLOADED";
+            } else {
+                echo "ERROR UPLOADING FILE";
+            } // moving uploaded file to a folcer on server.
+        }
+        ?>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+            <input type="file" name="img" id="img">
+            <br>
+            <input type="submit" value="submit">
+        </form>
+
+        <!---
+        PHP die() & exit()
+        1. die : die("here is some error") : immidietly termintae the execution / no line after die is executed / used to rectify error / 
+        2. exit() : exit("This is the problem") : works like die but  
+        -->
+
 
     </div>
 

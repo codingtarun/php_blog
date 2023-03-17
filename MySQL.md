@@ -1,5 +1,6 @@
 # MySQL KEYNOTES
 
+## Database : Collection of data stored in a format that can easily be accessed.
 
 ## DBMS : Data Base Management System.
 
@@ -14,10 +15,19 @@
     4. PostgreSQL
 
 ## Two types of Database : 
-    1. Relational
-    2. NoSQL
+    
 
 ```
+1. Relational
+2. NoSQL
+
+RDBMS is database type and it uses SQL as a language to manage database.
+
+Relational : 
+1. Table based database.
+2. Table may be or may not be connected to eact other.
+3. Special lanugage is used SQL : Structured Query Language.
+
 NoSQL : 
 1. NoSQL is not a Table-based Database.
 2. NoSQL database are document based.
@@ -32,7 +42,7 @@ NoSQL :
 3. Is Open Source.
 4. MySQL is RDBMS.
 5. Fast , reliable, scalable and easy to use.
-6. Can be used with any client/server side systesms.
+6. Can be used with any client/server side or embedded systesms.
 
 ```
 

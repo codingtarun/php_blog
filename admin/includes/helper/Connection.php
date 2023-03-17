@@ -8,9 +8,9 @@ date_default_timezone_set("Asia/Kolkata");
  * Databse Configuration
  */
 define('DBNAME', 'php_blog');
-define('HOST', 'localhost');
+define('HOST', 'localhost:3308');
 define('USER', 'root');
-define('PASSWORD', '');
+define('PASSWORD', 'bs09Btcs183@');
 
 /**
  * Trying to connect to database with above mentioned details

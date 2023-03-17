@@ -47,10 +47,10 @@ class Crudpdo
 
 
 
-        $host = "localhost";
+        $host = "localhost:3308";
         $db_name = "php_blog";
         $user = "root";
-        $password = "";
+        $password = "bs09Btcs183@";
 
         try {
             /**
