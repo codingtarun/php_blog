@@ -436,8 +436,7 @@ setcookie($cookie_name, "", time() - (86400 * 30), "/");
         echo "<br><br>----------LOCAL & GLOBAL VARIABLE----------<br><br>";
         /**
          * LOCAL VARIABLE : can be accessed inside a function in which it is declared.
-         * GLOBAL VARIABLE : declared outside the function and can be acessed outside the function.
-         * declaring : 
+         * GLOBAL VARIABLE : declared outside the function and can be acessed inside the function by using a special keyword 'global'.
          */
         $varOne = 12;
         $varTwo = 34;

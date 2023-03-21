@@ -151,7 +151,7 @@ NoSQL :
         ( 004 , "Karun Chauhan", "1996-04-30", "08091334020", "M" ),
         ( 005 , "Nikesh Chauhan", "1993-07-21", "08091334020", "M" );
     
-    6. MySQL Constraints : Restriction for data columns(input)
+    6. MySQL Constraints : Restriction/conditions for data columns(input)
         6.1. NOT NULL
         6.2. UNIQUE
         6.3. DEFAULT
@@ -163,8 +163,8 @@ NoSQL :
         CREATE TABLE `table_three` (
         -----------------------------------------------------------------
         |   COLUMN NAME   |      DATA TYPE   |    CONSTRAINTS           |
-        -----------------------------------------------------------------
-		|    id           |   INT            | NOT NULL UNIQUE,         |
+        -----------------------------------------------------------------            
+	|    id           |   INT            | NOT NULL UNIQUE,         |
         |    name         |   VARCHAR(50)    | NOT NULL,                |
         |    age          |   INT            | NOT NULL CHECK(age > 18),|
         |    gender       |   VARCHAR(10)    | NOT NULL,                |
